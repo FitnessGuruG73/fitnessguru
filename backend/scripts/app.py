@@ -26,6 +26,6 @@ def home():
 app.register_blueprint(signup_bp)
 app.register_blueprint(login_bp)
 
-if __name__ == '__main__':
-    # Run the Flask app in debug mode
-    app.run(host='0.0.0.0' ,debug=True,port=5000)
+# if __name__ == '__main__':
+#     # Run the Flask app in debug mode
+#     app.run(host='0.0.0.0' ,debug=True,port=5000)
