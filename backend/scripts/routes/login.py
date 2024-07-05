@@ -8,7 +8,7 @@ import os
 # Initialize PyMongo
 mongo = PyMongo()
 
-login_bp = Blueprint('login', __name__)
+login_bp = Blueprint('login', __name__) 
 
 # Get secret key from environment variable
 SECRET_KEY = os.getenv('SECRET_KEY')
@@ -24,7 +24,7 @@ def login():
     # Retrieve user from database
     user = mongo.db.Users.find_one({'username': username})
     
-    if user and check_password_hash(user['password'], password):
+    if user and check_password_hash(user['password'], password): 
         # Password verification successful, generate JWT
         expiration_time = datetime.utcnow() + timedelta(hours=2)
         access_token = jwt.encode({

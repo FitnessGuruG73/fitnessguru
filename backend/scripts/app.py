@@ -3,6 +3,7 @@ from flask_pymongo import PyMongo
 from flask_cors import CORS
 from routes.signup import signup_bp  # Ensure to import the mongo object
 from routes.login import login_bp
+from routes.video import video_bp
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
@@ -25,6 +26,9 @@ def home():
 # Register Blueprints
 app.register_blueprint(signup_bp)
 app.register_blueprint(login_bp)
+app.register_blueprint(video_bp)
+
+
 
 # if __name__ == '__main__':
 #     # Run the Flask app in debug mode
