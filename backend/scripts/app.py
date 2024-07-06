@@ -6,14 +6,16 @@ from routes.login import login_bp
 from routes.video import video_bp
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for all routes
 
-mongo_uri = "mongodb+srv://srishmaalladi14:8Vp7FYYqSLVXBAMw@cluster0.jtgcpyd.mongodb.net/Videos?retryWrites=true&w=majority&appName=Cluster0"
-# Configure the MongoDB URI
-app.config["MONGO_URI"] = mongo_uri
-
+app.config.from_prefixed_env()
 mongo = PyMongo(app)
 app.config['pymongo'] = mongo
+
+CORS(app)  # Enable CORS for all routes
+
+# mongo_uri = "mongodb+srv://srishmaalladi14:8Vp7FYYqSLVXBAMw@cluster0.jtgcpyd.mongodb.net/Videos?retryWrites=true&w=majority&appName=Cluster0"
+# Configure the MongoDB URI
+# app.config["MONGO_URI"] = mongo_uri
 
 # # Initialize PyMongo with the Flask app
 # mongo.init_app(app)
