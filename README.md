@@ -8,6 +8,7 @@
 6. Open new terminal and change the directory to **backend**.
 7. Create a virtual environment using the command _python -m venv .venv_.
 8. Now to install the dependencies use the command _pip install -r requirements.txt_.
-9. Run the command _flask run_.
+9. Ensure that the interpreter selected is **.\backend\.venv\Scripts\python.exe**.
+10. Run the command _flask run_.
 
-> That's it the project can be tested
+> That's it the project can be tested now
