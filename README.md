@@ -11,4 +11,4 @@
 9. Ensure that the interpreter selected is **.\backend\.venv\Scripts\python.exe**.
 10. Run the command _flask run_.
 
-> That's it the project can be tested now
+**That's it the project can be tested now.**
