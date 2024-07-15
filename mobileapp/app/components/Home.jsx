@@ -2,16 +2,6 @@ import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { ImageBackground, Text, View } from 'react-native';
 import { Button } from 'react-native-paper';
-import { StackNavigationProp } from '@react-navigation/stack';
-import * as Font from 'expo-font';
-
-const loadFonts = async () => {
-  await Font.loadAsync({
-    'CustomFont-Regular': require('./assets/fonts/Racing.ttf'),
-    'CustomFont-Bold': require('./assets/fonts/Bebas.ttf'),
-  });
-};
-
 const image=require('../../assets/images/home.jpg')
 
 const Home = () => {

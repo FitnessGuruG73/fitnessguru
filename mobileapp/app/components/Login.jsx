@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { View, Text ,ImageBackground,TextInput,TouchableOpacity} from 'react-native';
 import { Button } from 'react-native-paper';
 import Toast from 'react-native-toast-message'; // Import useToast hook
@@ -20,7 +21,7 @@ const Login = ({navigation}) => {
     }
     try {
       console.log('entered request')
-      const response = await fetch('http://192.168.150.172:5000/login', {
+      const response = await fetch('http://192.168.29.39:5500/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -30,16 +31,19 @@ const Login = ({navigation}) => {
           password: password,
         }),
       });
-      const data = await response.json();
+      const data = await response.json();  
       console.log(data)
 
       if (response.ok && data.token) {
+       await AsyncStorage.setItem('authToken', data.token);
+       const token = await AsyncStorage.getItem('authToken');
+       console.log(token);
         Toast.show({
           type: 'success',                        // Type of the toast message (error, success, info, etc.)
           text1: 'success',                       // Main text displayed in the toast
           text2: data.message || 'Successfully logged in',  // Secondary text or description
         });
-        navigation.navigate('Prompt')
+        navigation.replace('Tablayout', { username: username })
         
         // Navigate to the next screen or perform any other actions on success
       } else {
