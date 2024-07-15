@@ -3,7 +3,7 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import { MaterialCommunityIcons } from '@expo/vector-icons'; // or your preferred icon library
 import Profile from './Profile';
 import Search from './Search';
-import Favourites from './Favourites';
+import Videos from './Videos';
 import tw from 'twrnc'; // Import twrnc for Tailwind CSS classes
 
 const Tab = createMaterialBottomTabNavigator();
@@ -15,8 +15,8 @@ const Tablayout = ({route}) => {
   return (
     <Tab.Navigator
       initialRouteName="Search"
-      activeColor={tw.color('text-purple-700')}
-      inactiveColor={tw.color('text-purple-600')}
+      activeColor={tw.color('text-cyan-600')}
+      inactiveColor={tw.color('text-black')}
       barStyle={[tw`bg-white`,{height:70}]}
     >
       <Tab.Screen 
@@ -42,12 +42,12 @@ const Tablayout = ({route}) => {
         }}
       />
       <Tab.Screen 
-        name="Favourites" 
-        component={Favourites} 
+        name="videos" 
+        component={Videos} 
         options={{
-          tabBarLabel: 'Favourites',
+          tabBarLabel: 'videos',
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="heart" color={color} size={26} />
+            <MaterialCommunityIcons name="video" color={color} size={26} />
           ),
         }}
       />

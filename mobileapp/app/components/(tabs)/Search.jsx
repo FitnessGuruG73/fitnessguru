@@ -4,10 +4,7 @@ import { Video } from 'expo-av';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
-const videoFiles = [
-  require('../../../assets/vedios/crying.mp4'),
-  require('../../../assets/vedios/squat.mp4'),
-];
+
 
 const Search = () => {
   const [playingVideo, setPlayingVideo] = useState(null);
@@ -40,29 +37,7 @@ const Search = () => {
           pointerEvents="none"
         />
       </TouchableOpacity>
-      <ScrollView contentContainerStyle={styles.scrollViewContainer}>
-        {videoFiles.map((videoSource, index) => {
-          const isPlaying = playingVideo === index;
-          return (
-            <View key={index} style={styles.videoContainer}>
-              <Video
-                ref={(ref) => (videoRefs.current[index] = ref)}
-                source={videoSource}
-                style={styles.video}
-                shouldPlay={isPlaying}
-                resizeMode="contain"
-                isLooping
-                useNativeControls
-              />
-              <Button
-                color="#00acc1"
-                title={isPlaying ? 'Exit Full Screen' : 'Full Screen'}
-                onPress={() => handleFullScreen(index)}
-              />
-            </View>
-          );
-        })}
-      </ScrollView>
+      
     </View>
   );
 };
