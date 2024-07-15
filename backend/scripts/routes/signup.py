@@ -16,7 +16,6 @@ def signup():
 
    # Retrieve user from database
     user = mongo.db.Users.find_one({'username': username})
-    
 
     if user:
         # User already exists, check password or handle accordingly
