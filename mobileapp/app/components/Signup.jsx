@@ -17,7 +17,7 @@ const Signup = () => {
     }
     try {
       console.log('enteres signup');
-      const response = await fetch('http://192.168.150.172:5000/signup', {
+      const response = await fetch('http:://192.168.29.39:5500/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
