@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import Toast from 'react-native-toast-message'; // Import useToast hook
-
 import { View, Text, TextInput, StyleSheet, Pressable } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import config from '../../../config';
+
+const personalinfoUrl = `${config.SERVER_URL}/personalinfo`;
 
 const Personalinfo = () => {
   const [fullName, setName] = useState('');
@@ -34,7 +36,7 @@ const Personalinfo = () => {
         });
         return;
       }
-      const response = await fetch('http://192.168.29.216:5500/personalinfo', {
+      const response = await fetch(personalinfoUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
