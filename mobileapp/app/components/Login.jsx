@@ -2,7 +2,11 @@ import React, {useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { View, Text ,ImageBackground,TextInput,TouchableOpacity} from 'react-native';
 import { Button } from 'react-native-paper';
-import Toast from 'react-native-toast-message'; // Import useToast hook
+import Toast from 'react-native-toast-message'; 
+import config from '../../config';
+
+const loginUrl = `${config.SERVER_URL}/login`;
+
 const image=require('../../assets/images/swave.png')
 const Login = ({navigation}) => {
   const [username, setUsername] = useState('');
@@ -21,7 +25,7 @@ const Login = ({navigation}) => {
     }
     try {
       console.log('entered request')
-      const response = await fetch('http://192.168.29.216:5500/login', {
+      const response = await fetch(loginUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
