@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import Toast from 'react-native-toast-message'; // Import useToast hook
+
 import { View, Text, TextInput, StyleSheet, Pressable } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -10,8 +12,62 @@ const Personalinfo = () => {
   const [gender, setGender] = useState('');
   const [fitnessGoals, setFitnessGoals] = useState('');
 
-  const handleSignup = () => {
+  const handleSignup = async () => {
+    if (!fullName || !email || !dob || !gender || !fitnessGoals) {
+      Toast.show({
+        type: 'error',
+        text1: 'Error',
+        text2: 'Please fill all the fields',
+      });
+      return;
+    }
     console.log({ fullName, email, dob, gender, fitnessGoals });
+    try {
+      console.log('request to post personal info...')
+      const token = await AsyncStorage.getItem('authToken');
+      console.log(token)
+      if(!token){
+        Toast.show({
+          type: 'error',
+          text1: 'Unauthorized',
+          text2: 'There\'s some error please sign in again.',
+        });
+        return;
+      }
+      const response = await fetch('http://192.168.29.216:5500/personalinfo', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          token,
+          info: {fullName, email, dob, gender, fitnessGoals}
+        }),
+      });
+      const data = await response.json();  
+      console.log(data)
+
+      if(response.ok){
+        Toast.show({
+          type: 'success',                        // Type of the toast message (error, success, info, etc.)
+          text1: 'success',                       // Main text displayed in the toast
+          text2: data.message || 'Your info is successfully saved',  // Secondary text or description
+        });
+      }else {
+        Toast.show({
+          type: 'error',
+          text1: 'Sorry, we Couldn\'t save your info',
+          text2: 'Please try again. ',
+        });
+      }
+  }catch(error){
+    console.log(error)
+    Toast.show({
+      type: 'error',
+      text1: 'Error',
+      text2:  'Something went wrong',
+    });
+  };
   };
 
   return (
