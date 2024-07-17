@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import Toast from 'react-native-toast-message'; // Import useToast hook
 import { View, Text, TextInput, StyleSheet, Pressable } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -7,12 +8,14 @@ import config from '../../../config';
 
 const personalinfoUrl = `${config.SERVER_URL}/personalinfo`;
 
+
 const Personalinfo = () => {
   const [fullName, setName] = useState('');
   const [email, setEmail] = useState('');
   const [dob, setDob] = useState('');
   const [gender, setGender] = useState('');
   const [fitnessGoals, setFitnessGoals] = useState('');
+
 
   const handleSignup = async () => {
     if (!fullName || !email || !dob || !gender || !fitnessGoals) {

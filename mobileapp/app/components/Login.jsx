@@ -25,6 +25,7 @@ const Login = ({navigation}) => {
     }
     try {
       console.log('entered request')
+
       const response = await fetch(loginUrl, {
         method: 'POST',
         headers: {

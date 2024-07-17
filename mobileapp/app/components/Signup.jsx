@@ -4,7 +4,7 @@ import { Button } from 'react-native-paper';
 import Toast from 'react-native-toast-message'; 
 import config from '../../config';
 
-const signupUrl = `${config.SERVER_URL}/login`;
+const signupUrl = `${config.SERVER_URL}/signup`;
 
 const image=require('../../assets/images/swave.png')
 const Signup = () => {
@@ -21,6 +21,7 @@ const Signup = () => {
     }
     try {
       console.log('enteres signup');
+
       const response = await fetch(signupUrl, {
         method: 'POST',
         headers: {
