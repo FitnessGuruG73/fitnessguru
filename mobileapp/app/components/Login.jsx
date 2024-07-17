@@ -48,7 +48,7 @@ const Login = ({navigation}) => {
           text1: 'success',                       // Main text displayed in the toast
           text2: data.message || 'Successfully logged in',  // Secondary text or description
         });
-        navigation.replace('Tablayout', { username: username })
+        navigation.replace('FitnessGuru', { username: username })
         
         // Navigate to the next screen or perform any other actions on success
       } else {

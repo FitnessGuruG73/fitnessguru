@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
 import { Camera } from 'expo-camera/legacy';
 import * as Speech from 'expo-speech';
+import config from '../../../config';
+const startedUrl = `${config.SERVER_URL}/video_feed`;
 
 const Started= () => {
   const cameraRef = useRef(null);
@@ -31,7 +33,7 @@ const Started= () => {
       const id = setInterval(async () => {
         if (cameraRef.current) {
           const photo = await cameraRef.current.takePictureAsync({ base64: true, isAudioEnabled: false });
-          const response = await fetch('http://192.168.29.39:5500/video_feed', {
+          const response = await fetch(startedUrl, {
             method: 'POST',
             body: JSON.stringify({ image: photo.base64 }),
             headers: {

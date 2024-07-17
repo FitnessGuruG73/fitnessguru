@@ -2,13 +2,13 @@ import React from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons'; // or your preferred icon library
 import Profile from './Profile';
-import Search from './Search';
+import Search from './Prompt';
 import Videos from './Videos';
 import tw from 'twrnc'; // Import twrnc for Tailwind CSS classes
 
 const Tab = createMaterialBottomTabNavigator();
 
-const Tablayout = ({route}) => {
+const FitnessGuru = ({route}) => {
   const { username } = route.params; 
   console.log(username);
   
@@ -55,4 +55,4 @@ const Tablayout = ({route}) => {
   );
 };
 
-export default Tablayout;
+export default FitnessGuru;

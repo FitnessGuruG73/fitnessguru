@@ -6,9 +6,9 @@ import Home from './components/Home';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import History from './components/(tabs)/History'
-import Tablayout from './components/(tabs)/_layout';
+import FitnessGuru from './components/(tabs)/_layout';
 import Personalinfo from './components/(tabs)/Personalinfo';
-import Search from './components/(tabs)/Search';
+import Search from './components/(tabs)/Prompt';
 
 import Started from './components/(tabs)/Started'
 
@@ -29,7 +29,7 @@ const Index = () => {
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Login" component={Login}/>
         <Stack.Screen name="Signup" component={Signup}/>
-        <Stack.Screen name="Tablayout" component={Tablayout}/> 
+        <Stack.Screen name="FitnessGuru" component={FitnessGuru}/> 
         <Stack.Screen name="History" component={History}/>
         <Stack.Screen name="Personalinfo" component={Personalinfo}/>
         <Stack.Screen name="Search" component={Search}/>
