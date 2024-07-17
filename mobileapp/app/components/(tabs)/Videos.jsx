@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { View, ScrollView, StyleSheet, Text, TouchableOpacity } from 'react-native';
+
 import { Video } from 'expo-av';
 import { useNavigation } from '@react-navigation/native';
 
@@ -15,6 +16,7 @@ const videoFiles = [
 const Videos = () => {
   const [playingVideo, setPlayingVideo] = useState(null);
   const videoRefs = useRef([]);
+
   const navigation = useNavigation();
 
   const handleFullScreen = (index) => {
@@ -31,17 +33,20 @@ const Videos = () => {
     navigation.navigate('Started'); // Navigate to the "Started" page
   };
 
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Videos</Text>
       <ScrollView contentContainerStyle={styles.scrollViewContainer}>
         {videoFiles.map((video, index) => {
+
           const isPlaying = playingVideo === index;
           return (
             <View key={index} style={styles.videoContainer}>
               <Video
                 ref={(ref) => (videoRefs.current[index] = ref)}
                 source={video.source}
+
                 style={styles.video}
                 shouldPlay={isPlaying}
                 resizeMode="contain"
@@ -54,6 +59,7 @@ const Videos = () => {
                   <Text style={styles.getStartedButtonText}>Get Started</Text>
                 </TouchableOpacity>
               </View>
+
             </View>
           );
         })}
@@ -83,6 +89,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 10,
     padding: 10,
+
   },
   video: {
     width: '100%',
@@ -111,6 +118,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 14,
   },
+
   title: {
     fontSize: 24,
     fontWeight: 'bold',

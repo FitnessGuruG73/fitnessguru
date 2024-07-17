@@ -10,7 +10,7 @@ const Tab = createMaterialBottomTabNavigator();
 
 const Tablayout = ({route}) => {
   const { username } = route.params; 
-  console.log(username,"blah");
+  console.log(username);
   
   return (
     <Tab.Navigator
