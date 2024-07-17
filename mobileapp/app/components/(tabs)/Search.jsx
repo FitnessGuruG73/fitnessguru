@@ -3,9 +3,6 @@ import { View, ScrollView, TouchableOpacity, TextInput, Button, StyleSheet } fro
 import { Video } from 'expo-av';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-
-
-
 const Search = () => {
   const [playingVideo, setPlayingVideo] = useState(null);
   const videoRefs = useRef([]);

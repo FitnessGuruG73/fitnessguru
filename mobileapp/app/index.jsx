@@ -9,6 +9,7 @@ import History from './components/(tabs)/History'
 import Tablayout from './components/(tabs)/_layout';
 import Personalinfo from './components/(tabs)/Personalinfo';
 import Search from './components/(tabs)/Search';
+import Started from './components/(tabs)/Started'
 const Stack = createStackNavigator();
 const Index = () => {
  return (
@@ -30,6 +31,7 @@ const Index = () => {
         <Stack.Screen name="History" component={History}/>
         <Stack.Screen name="Personalinfo" component={Personalinfo}/>
         <Stack.Screen name="Search" component={Search}/>
+        <Stack.Screen name="Started" component={Started}/>
     </Stack.Navigator>  
     <Toast></Toast>
     </>
