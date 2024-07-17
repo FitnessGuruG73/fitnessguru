@@ -11,8 +11,7 @@ mongo = PyMongo()
 login_bp = Blueprint('login', __name__) 
 
 # Get secret key from environment variable
-SECRET_KEY = os.getenv('SECRET_KEY')
-print(SECRET_KEY)
+SECRET_KEY = os.getenv('FLASK_SECRET_KEY')
 
 @login_bp.route('/login', methods=['POST'])
 def login():

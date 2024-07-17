@@ -4,16 +4,19 @@ from flask_cors import CORS
 from routes.signup import signup_bp  # Ensure to import the mongo object
 from routes.login import login_bp
 from routes.video import video_bp
+from routes.media import media_bp
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for all routes
 
-mongo_uri = "mongodb+srv://srishmaalladi14:8Vp7FYYqSLVXBAMw@cluster0.jtgcpyd.mongodb.net/Videos?retryWrites=true&w=majority&appName=Cluster0"
-# Configure the MongoDB URI
-app.config["MONGO_URI"] = mongo_uri
-
+app.config.from_prefixed_env()  
 mongo = PyMongo(app)
 app.config['pymongo'] = mongo
+
+CORS(app)  # Enable CORS for all routes
+
+# mongo_uri = "mongodb+srv://srishmaalladi14:8Vp7FYYqSLVXBAMw@cluster0.jtgcpyd.mongodb.net/Videos?retryWrites=true&w=majority&appName=Cluster0"
+# Configure the MongoDB URI
+# app.config["MONGO_URI"] = mongo_uri
 
 # # Initialize PyMongo with the Flask app
 # mongo.init_app(app)
@@ -27,6 +30,7 @@ def home():
 app.register_blueprint(signup_bp)
 app.register_blueprint(login_bp)
 app.register_blueprint(video_bp)
+app.register_blueprint(media_bp)
 
 
 
