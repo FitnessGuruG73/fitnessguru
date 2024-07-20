@@ -519,29 +519,34 @@ const Started = () => {
     })();
   }, []);
 
-  // Function to speak feedback for incorrect form
-  const speakIncorrectFeedback = () => {
-    console.log("Incorrect feedback triggered");
-    Speech.speak("Your form is incorrect. Please correct it.", { language: 'en' });
+ const speakIncorrectFeedback = () => {
+    console.log("incorrect");
+    Speech.speak("Your form is incorrect. Please correct it.", {
+      language: 'en',
+      pitch: 1.0,
+      rate: 1.0,
+      onError: (error) => console.log('Error in Speech:', error),
+    });
   };
 
-  // Function to speak feedback for correct form
   const speakCorrectFeedback = () => {
-    console.log("Correct feedback triggered");
-    Speech.speak("Great, keep doing", { language: 'en' });
+    console.log("correct form");
+    Speech.speak("Great, keep doing", {
+      language: 'en',
+      pitch: 1.0,
+      rate: 1.0,
+      onError: (error) => console.log('Error in Speech:', error),
+    });
   };
-
-  // Function to speak feedback for no pose detected
-  const speakNoPoseFeedback = () => {
-    console.log("No pose detected feedback triggered");
-    Speech.speak("No pose detected. Please assume the correct position.", { language: 'en' });
-  };
-
-  // Function to speak feedback for error
-  const speakErrorFeedback = () => {
-    console.log("Error feedback triggered");
-    Speech.speak("Error fetching status", { language: 'en' });
-  };
+  const speaknopose = () => {
+    console.log("no pose detected")
+    Speech.speak("No pose detected ensure camera is correctly placed ",{
+      language:'en',
+      pitch: 1.0,
+      rate:1.0,
+      onError: (error) => console.log("error in pose",error),
+    })
+  }
 
   const startStreaming = async () => {  
     if (cameraRef.current && !recording) {
@@ -558,54 +563,21 @@ const Started = () => {
           });
           const data = await response.json();
           console.log(data);
-          setExerciseStatus(data.message || 'Error fetching status'); 
-          console.log(data.message) 
+          setExerciseStatus(data.status || 'Error fetching status');  
 
-          // Call specific function based on exercise status
-          switch (data.message) {
-            case "Incorrect":
-              console.log("I")
-
-              setIncorrectCount(prevCount => {
-                const newCount = prevCount + 1;
-                if (newCount % 2 === 0) { 
-                   
-                  speakIncorrectFeedback();
-                } 
-                return newCount;
-              });
-              setNoPoseCount(0); // Reset no pose count
-              setCorrectCount(0); // Reset correct count
-              break;
-            case "Correct":
-              setCorrectCount(prevCount => {
-                const newCount = prevCount + 1;
-                if (newCount % 1 === 0) {
-                  speakCorrectFeedback();  
-                }
-                return newCount;
-              });
-              setIncorrectCount(0); // Reset incorrect count
-              setNoPoseCount(0); // Reset no pose count
-              break;
-            case "No pose detected":
-              console.log("N")
-              setNoPoseCount(prevCount => {
-                const newCount = prevCount + 1;
-                if (newCount % 3 === 0) {
-                  speakNoPoseFeedback(); 
-                }
-                return newCount;
-              });
-              setIncorrectCount(0); // Reset incorrect count
-              setCorrectCount(0); // Reset correct count
-              break;
-            default:
-              speakErrorFeedback();
-              break;
+        if (data.message === "INCORRECT FORM") {
+            speakIncorrectFeedback();
+          } 
+          else if (data.status === "Correct") {
+            
+            speakCorrectFeedback();
+          }
+          else if (data.message === "No pose detected")
+          {
+            speaknopose();
           }
         }
-      }, 1000); // Send a frame every second
+      }, 5000); // Send a frame every second
 
       setIntervalId(id); // Store the interval ID for clearing later
     }

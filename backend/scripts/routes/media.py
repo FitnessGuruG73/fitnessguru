@@ -88,6 +88,6 @@ def video_feed():
             print(input_data)
             prediction = model.predict(input_data)
             exercise_status = "Correct" if prediction[0] > 0.5 else "INCORRECT FORM"
-            
+            print(exercise_status)
             return jsonify({"message": exercise_status})
         return jsonify({"message": "No pose detected"})
