@@ -6,7 +6,7 @@ from routes.login import login_bp
 from routes.video import video_bp
 from routes.personalinfo import personalinfo_bp
 from routes.media import media_bp
-from routes.model import  model_bp
+from rag_lama.rag_model import rag_model_bp
 
 
 def createApp():
@@ -22,7 +22,7 @@ def createApp():
     app.register_blueprint(video_bp)
     app.register_blueprint(personalinfo_bp)
     app.register_blueprint(media_bp)
-    app.register_blueprint(model_bp)
+    app.register_blueprint(rag_model_bp)
     return app
 
 app = createApp() 
