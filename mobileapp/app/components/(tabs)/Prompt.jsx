@@ -1,69 +1,83 @@
 import React, { useState, useRef } from 'react';
-import { View, ScrollView, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
+import { View, ScrollView, TouchableOpacity, TextInput, Text } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import config from '../../../config'; // Adjust the path as necessary
 
-const Search = () => {
-  const [playingVideo, setPlayingVideo] = useState(null);
-  const videoRefs = useRef([]);
+const modelUrl = `${config.SERVER_URL}/model`;
+
+const Prompt = () => {
+  const [inputText, setInputText] = useState('');
+  const [qaPairs, setQaPairs] = useState([]);
+  const [questions, setQuestions] = useState([]);
   const navigation = useNavigation();
 
+  const handleTextInputChange = (text) => {
+    setInputText(text);
+  };
+
+  const handleSendInput = async () => {
+    if (!inputText.trim()) return;
+    const currentInput = inputText;
+    setInputText('');
+
+    try {
+      const response = await fetch(modelUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ prompt: currentInput }),
+      });
+      const data = await response.json();
+      console.log('Response from model:', data);
+
+      const newQaPairs = [...qaPairs, { question: currentInput, answer: data.response }];
+      setQaPairs(newQaPairs);
+      setQuestions([...questions, currentInput]);
+
+    } catch (error) {
+      console.error('Error sending prompt to model:', error);
+    }
+  };
+
+  const navigateToHistory = () => {
+    navigation.navigate('History', { questions });
+  };
 
   return (
-    <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollViewContainer}>
-        {/* Add your video components or other content here */}
+    <View className="flex-1 bg-white">
+      <ScrollView contentContainerStyle={{ flexGrow: 1, paddingBottom: 70 }}>
+        {qaPairs.map((qa, index) => (
+          <View key={index} className="w-11/12 my-2 mx-auto">
+            <View className="bg-transparent p-2 rounded">
+              <Text className="text-gray-500 text-left">{qa.question}</Text>
+            </View>
+            <View className="bg-gray-200 p-2 mt-2 rounded">
+              <Text className="text-gray-700 text-left">{qa.answer}</Text>
+            </View>
+          </View>
+        ))}
       </ScrollView>
-      <View style={styles.searchContainer}>
-          <MaterialCommunityIcons name="chat-processing-outline" size={24} color="#00acc1" />
-          <TextInput
-            placeholder="Enter your prompt.."
-            style={styles.textInput}
-            pointerEvents="none"
-          />
+      <View className="absolute bottom-0 w-full bg-white p-3 border-t border-gray-300 flex-row items-center shadow-md">
+        <MaterialCommunityIcons name="chat-processing-outline" size={24} color="#00acc1" />
+        <TextInput
+          placeholder="Enter your prompt..."
+          className="flex-1 ml-2 border-transparent"
+          value={inputText}
+          onChangeText={handleTextInputChange}
+          onSubmitEditing={handleSendInput}
+        />
+        <TouchableOpacity onPress={handleSendInput}>
+          <MaterialCommunityIcons name="send" size={24} color="#00acc1" />
+        </TouchableOpacity>
+        {/* Add a button to navigate to History screen if needed */}
+        {/* <TouchableOpacity onPress={navigateToHistory}>
+          <Text className="text-blue-500">View History</Text>
+        </TouchableOpacity> */}
       </View>
     </View>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'white',
-  },
-  scrollViewContainer: {
-    flexGrow: 1,
-    alignItems: 'center',
-    paddingBottom: 70, // Ensure content is not hidden behind the search bar
-  },
-  searchContainer: {
-    position: 'absolute',
-    bottom: 0,
-    width: '100%',
-    backgroundColor: 'white',
-    padding: 10,
-    borderTopWidth: 1,
-    borderTopColor: '#ddd',
-  },
-  searchBar: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: 'white',
-    borderRadius: 10,
-    padding: 10,
-  },
-  textInput: {
-    flex: 1,
-    marginLeft: 10,
-    borderColor: 'transparent',
-  },
-  shadow: {
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
-});
-
-export default Search;
+export default Prompt;

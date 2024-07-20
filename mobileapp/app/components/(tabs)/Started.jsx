@@ -21,11 +21,34 @@ const Started= () => {
     })();
   }, []);
 
-  const speakFeedback = (message) => {
-    Speech.speak(message, {
+ const speakIncorrectFeedback = () => {
+    console.log("incorrect");
+    Speech.speak("Your form is incorrect. Please correct it.", {
       language: 'en',
+      pitch: 1.0,
+      rate: 1.0,
+      onError: (error) => console.log('Error in Speech:', error),
     });
   };
+
+  const speakCorrectFeedback = () => {
+    console.log("correct form");
+    Speech.speak("Great, keep doing", {
+      language: 'en',
+      pitch: 1.0,
+      rate: 1.0,
+      onError: (error) => console.log('Error in Speech:', error),
+    });
+  };
+  const speaknopose = () => {
+    console.log("no pose detected")
+    Speech.speak("No pose detected ensure camera is correctly placed ",{
+      language:'en',
+      pitch: 1.0,
+      rate:1.0,
+      onError: (error) => console.log("error in pose",error),
+    })
+  }
 
   const startStreaming = async () => {
     if (cameraRef.current && !recording) {
@@ -41,23 +64,22 @@ const Started= () => {
             },
           });
           const data = await response.json();
+          console.log(data);
           setExerciseStatus(data.status || 'Error fetching status');  
 
-          // Speak feedback based on exercise status
-          if (data.status === "Incorrect") {
-            setIncorrectCount(prevCount => {
-              const newCount = prevCount + 1;
-              if (newCount % 7=== 0) {
-                speakFeedback("Your form is incorrect. Please correct it.");
-              }
-              return newCount;
-            });
-          } else if (data.status === "Correct") {
-            speakFeedback("Great, keep doing");
-            setIncorrectCount(0); // Reset incorrect count
+        if (data.message === "INCORRECT FORM") {
+            speakIncorrectFeedback();
+          } 
+          else if (data.status === "Correct") {
+            
+            speakCorrectFeedback();
+          }
+          else if (data.message === "No pose detected")
+          {
+            speaknopose();
           }
         }
-      }, 1000); // Send a frame every second
+      }, 5000); // Send a frame every second
 
       setIntervalId(id); // Store the interval ID for clearing later
     }
