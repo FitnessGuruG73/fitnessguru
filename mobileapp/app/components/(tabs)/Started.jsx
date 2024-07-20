@@ -21,18 +21,7 @@ const Started= () => {
     })();
   }, []);
 
-  
-  // const speakFeedback = (message) => {
-  //   console.log('Speaking:', message);
-  //   Speech.speak(message, {
-  //     language: 'en',
-  //     pitch: 1.0,
-  //     rate: 1.0,
-  //     onError: (error) => console.log('Error in Speech:', error),
-  //   });
-  // };
-
-  const speakIncorrectFeedback = () => {
+ const speakIncorrectFeedback = () => {
     console.log("incorrect");
     Speech.speak("Your form is incorrect. Please correct it.", {
       language: 'en',
@@ -53,7 +42,12 @@ const Started= () => {
   };
   const speaknopose = () => {
     console.log("no pose detected")
-    Speech.speak("No")
+    Speech.speak("No pose detected ensure camera is correctly placed ",{
+      language:'en',
+      pitch: 1.0,
+      rate:1.0,
+      onError: (error) => console.log("error in pose",error),
+    })
   }
 
   const startStreaming = async () => {
