@@ -4,7 +4,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import config from '../../../config'; // Adjust the path as necessary
 
-const modelUrl = `${config.SERVER_URL}/model`;
+const modelUrl = `${config.SERVER_URL}/ask_pdf`;
 
 const Prompt = () => {
   const [inputText, setInputText] = useState('');
@@ -30,9 +30,9 @@ const Prompt = () => {
         body: JSON.stringify({ prompt: currentInput }),
       });
       const data = await response.json();
-      console.log('Response from model:', data);
+      console.log('Response from model:', data.answer);
 
-      const newQaPairs = [...qaPairs, { question: currentInput, answer: data.response }];
+      const newQaPairs = [...qaPairs, { question: currentInput, answer: data.answer }];
       setQaPairs(newQaPairs);
       setQuestions([...questions, currentInput]);
 
