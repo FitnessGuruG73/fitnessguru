@@ -24,7 +24,7 @@ const Login = ({navigation}) => {
       return;
     }
     try {
-      console.log('entered request')
+      console.log('Request for login')
 
       const response = await fetch(loginUrl, {
         method: 'POST',
@@ -37,7 +37,6 @@ const Login = ({navigation}) => {
         }),
       });
       const data = await response.json();  
-      console.log(data)
 
       if (response.ok && data.token) {
        await AsyncStorage.setItem('authToken', data.token);
