@@ -65,7 +65,7 @@ const Profile = ({route}) => {
           <Text className='text-lg text-cyan-600 font-bold'>Personal info</Text>
         </Pressable>
 
-        <Pressable
+        {/* <Pressable
           onPress={() => navigation.navigate('History')}
           className='flex-row items-center justify-start bg-white rounded-lg p-3 mt-4 w-3/4'
           style={{
@@ -88,7 +88,7 @@ const Profile = ({route}) => {
             }}
           />
           <Text className='text-lg text-cyan-600 font-bold'>History</Text>
-        </Pressable>
+        </Pressable> */}
 
         <Pressable
           onPress={handleLogout}

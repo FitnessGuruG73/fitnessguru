@@ -35,9 +35,9 @@ const FitnessGuru = ({route}) => {
         component={Search} 
         initialParams={{fileId:''}}
         options={{
-          tabBarLabel: 'Search',
+          tabBarLabel: 'Chat',
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="magnify" color={color} size={26} />
+            <MaterialCommunityIcons name="chat-processing-outline" color={color} size={26} />
           ),
         }}
       />

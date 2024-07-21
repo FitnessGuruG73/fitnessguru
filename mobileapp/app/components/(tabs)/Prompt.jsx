@@ -9,7 +9,6 @@ const modelUrl = `${config.SERVER_URL}/ask_pdf`;
 const Prompt = () => {
   const [inputText, setInputText] = useState('');
   const [qaPairs, setQaPairs] = useState([]);
-  const [questions, setQuestions] = useState([]);
   const navigation = useNavigation();
 
   const handleTextInputChange = (text) => {
@@ -20,6 +19,9 @@ const Prompt = () => {
     if (!inputText.trim()) return;
     const currentInput = inputText;
     setInputText('');
+
+    const newQaPairs = [...qaPairs, { question: currentInput, answer: 'Generating...' }];
+    setQaPairs(newQaPairs);
 
     try {
       const response = await fetch(modelUrl, {
@@ -32,18 +34,21 @@ const Prompt = () => {
       const data = await response.json();
       console.log('Response from model:', data.answer);
 
-      const newQaPairs = [...qaPairs, { question: currentInput, answer: data.answer }];
-      setQaPairs(newQaPairs);
-      setQuestions([...questions, currentInput]);
+      // Update the answer in the qaPairs state
+      const updatedQaPairs = newQaPairs.map(qa => 
+        qa.question === currentInput ? { ...qa, answer: data.answer } : qa
+      );
+      setQaPairs(updatedQaPairs);
 
     } catch (error) {
       console.error('Error sending prompt to model:', error);
+      const updatedQaPairs = newQaPairs.map(qa => 
+        qa.question === currentInput ? { ...qa, answer: 'Error fetching answer' } : qa
+      );
+      setQaPairs(updatedQaPairs);
     }
   };
 
-  const openDrawer = () => {
-    navigation.openDrawer(); // Open the drawer
-  };
 
   return (
     <View className="flex-1 bg-white">
@@ -60,8 +65,8 @@ const Prompt = () => {
         ))}
       </ScrollView>
       <View className="absolute bottom-0 w-full bg-white p-3 border-t border-gray-300 flex-row items-center shadow-md">
-        <TouchableOpacity onPress={openDrawer}>
-          <MaterialCommunityIcons name="menu" size={24} color="#00acc1" />
+        <TouchableOpacity>
+          <MaterialCommunityIcons name="chat-processing-outline" size={24} color="#00acc1" />
         </TouchableOpacity>
         <TextInput
           placeholder="Enter your prompt..."
