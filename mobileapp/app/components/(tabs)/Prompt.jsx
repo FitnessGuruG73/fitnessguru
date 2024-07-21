@@ -27,7 +27,7 @@ const Prompt = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ prompt: currentInput }),
+        body: JSON.stringify({ query: currentInput }),
       });
       const data = await response.json();
       console.log('Response from model:', data.answer);
