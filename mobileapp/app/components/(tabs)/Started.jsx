@@ -44,7 +44,7 @@ const Started = () => {
   };
   const speaknopose = () => {
     console.log("no pose detected")
-    Speech.speak("No pose detected ensure camera is correctly placed ",{
+    Speech.speak("No pose detected. Ensure camera is correctly placed ",{
       language:'en',
       pitch: 1.0,
       rate:1.0,
@@ -67,7 +67,7 @@ const Started = () => {
           });
           const data = await response.json();
           console.log(data);
-          setExerciseStatus(data.status || 'Error fetching status');  
+          setExerciseStatus(data.message || 'Error fetching status');  
 
         if (data.message === "INCORRECT FORM") {
             speakIncorrectFeedback();
