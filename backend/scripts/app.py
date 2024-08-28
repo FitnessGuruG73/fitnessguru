@@ -19,7 +19,7 @@ def createApp():
     # Register Blueprints
     app.register_blueprint(signup_bp)
     app.register_blueprint(login_bp)
-    app.register_blueprint(video_bp)
+    # app.register_blueprint(video_bp)
     app.register_blueprint(personalinfo_bp)
     app.register_blueprint(media_bp)
     app.register_blueprint(rag_model_bp)
