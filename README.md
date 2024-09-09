@@ -12,3 +12,11 @@
 10. Run the command _flask run_.
 
 **That's it the project can be tested now.**
+
+Developed by-
+1. B Sreevalli
+2. S Lakshmi Sowmya
+3. P Anjana Soumya
+4. K Srija
+5. A Srishma
+6. E Sindhuja
