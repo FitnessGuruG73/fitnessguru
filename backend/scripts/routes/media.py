@@ -14,7 +14,7 @@ media_bp = Blueprint('media', __name__)
 mp_pose = mp.solutions.pose
 
 # Load your trained neural network model
-model_path = os.path.join(os.path.dirname(__file__), '..', 'models', 'my_best_model.keras')
+model_path = os.path.join(os.path.dirname(__file__), '..', 'NeuralNetwork', 'my_best_model.keras')
 model = tf.keras.models.load_model(model_path)
 
 # Define keypoints for each exercise
